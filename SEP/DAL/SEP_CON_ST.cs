@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 
 namespace SEP.DAL
 {
@@ -6,7 +6,7 @@ namespace SEP.DAL
     {
         public readonly IConfiguration _config;
         protected SqlConnection con;
-
+        protected SqlTransaction transaction;
         public SEP_CON_ST()
         {
             _config = new ConfigurationBuilder()
