@@ -18,6 +18,83 @@
     ]
   },
   {
+    "ContainingType": "SEP.Controllers.CampaignController",
+    "Method": "Createcampaign",
+    "RelativePath": "api/Campaign/CreateCampaign",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CampaignID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "BuyerID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "CampaignName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Amount1",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "Amount2",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "Amount3",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "Amount4",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "Amount5",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "APFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "CreatedAt",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SEP.Controllers.RegistrationController",
+    "Method": "Login",
+    "RelativePath": "api/Registration/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objlogin",
+        "Type": "SEP.Model.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SEP.Controllers.RegistrationController",
     "Method": "Register",
     "RelativePath": "api/Registration/Register",
@@ -28,6 +105,22 @@
       {
         "Name": "_objaccount",
         "Type": "SEP.Model.SEP_Account",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SEP.Controllers.RegistrationController",
+    "Method": "VerifyOTP",
+    "RelativePath": "api/Registration/VerifyOTP",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "objotp",
+        "Type": "SEP.Model.OTP_Request",
         "IsRequired": true
       }
     ],

@@ -13,6 +13,10 @@ namespace SEP.BAL
         {
             this.objaccnt = objsepaccount;
         }
+        public Registration_BAL()
+        {
+
+        }
 
         public string CheckPhoneEmail()
         {
@@ -21,6 +25,11 @@ namespace SEP.BAL
             
         }
         
+        public bool VerifyOTP(OTP_Request objOTP)
+        {
+            objrgstrdal = new Registration_DAL();
+            return objrgstrdal.VerifyOTP(objOTP);
+        }
 
         public bool RegisterUser()
         {
@@ -28,6 +37,12 @@ namespace SEP.BAL
 
             return objrgstrdal.RegisterAccount();
         }
+
+        public SEP_User UserLogin(string email, string password) {
+            objrgstrdal = new Registration_DAL(objaccnt);
+            return objrgstrdal.Login(email,  password);
+        }
+
 
     }
 }
