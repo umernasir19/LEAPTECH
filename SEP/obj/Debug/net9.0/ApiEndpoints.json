@@ -26,43 +26,44 @@
     "Order": 0,
     "Parameters": [
       {
+        "Name": "objcam",
+        "Type": "SEP.Model.SEP_Campaign",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SEP.Controllers.CampaignController",
+    "Method": "UploadApFile",
+    "RelativePath": "api/Campaign/UploadAPFile",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FileID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
         "Name": "CampaignID",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "BuyerID",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "CampaignName",
+        "Name": "FileName",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "Amount1",
-        "Type": "System.Decimal",
+        "Name": "UploadedAt",
+        "Type": "System.DateTime",
         "IsRequired": false
       },
       {
-        "Name": "Amount2",
-        "Type": "System.Decimal",
-        "IsRequired": false
-      },
-      {
-        "Name": "Amount3",
-        "Type": "System.Decimal",
-        "IsRequired": false
-      },
-      {
-        "Name": "Amount4",
-        "Type": "System.Decimal",
-        "IsRequired": false
-      },
-      {
-        "Name": "Amount5",
-        "Type": "System.Decimal",
+        "Name": "UploadedBy",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
@@ -71,8 +72,258 @@
         "IsRequired": false
       },
       {
-        "Name": "CreatedAt",
-        "Type": "System.DateTime",
+        "Name": "Remarks",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.CaseSensitive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.IsInitialized",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.RemotingFormat",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.ChildRelations",
+        "Type": "System.Data.DataRelationCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Columns",
+        "Type": "System.Data.DataColumnCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Constraints",
+        "Type": "System.Data.ConstraintCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.RemotingFormat",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.SchemaSerializationMode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.CaseSensitive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.DefaultViewManager",
+        "Type": "System.Data.DataViewManager",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.EnforceConstraints",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.DataSetName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Namespace",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Prefix",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.ExtendedProperties",
+        "Type": "System.Data.PropertyCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.HasErrors",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.IsInitialized",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Locale",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Site.Component.Site.Component",
+        "Type": "System.ComponentModel.IComponent",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Site.Component.Site.Container.Components",
+        "Type": "System.ComponentModel.ComponentCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Site.Component.Site.DesignMode",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Site.Component.Site.Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Site.Container.Components",
+        "Type": "System.ComponentModel.ComponentCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Site.DesignMode",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Site.Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Relations",
+        "Type": "System.Data.DataRelationCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Tables",
+        "Type": "System.Data.DataTableCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.Container.Components",
+        "Type": "System.ComponentModel.ComponentCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DataSet.DesignMode",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DefaultView",
+        "Type": "System.Data.DataView",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DisplayExpression",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.ExtendedProperties",
+        "Type": "System.Data.PropertyCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.HasErrors",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Locale",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.MinimumCapacity",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.ParentRelations",
+        "Type": "System.Data.DataRelationCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.PrimaryKey",
+        "Type": "System.Data.DataColumn[]",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Rows",
+        "Type": "System.Data.DataRowCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.TableName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Namespace",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Prefix",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Site.Component.Site.Component",
+        "Type": "System.ComponentModel.IComponent",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Site.Component.Site.Container.Components",
+        "Type": "System.ComponentModel.ComponentCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Site.Component.Site.DesignMode",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Site.Component.Site.Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Site.Container.Components",
+        "Type": "System.ComponentModel.ComponentCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Site.DesignMode",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Site.Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.Container.Components",
+        "Type": "System.ComponentModel.ComponentCollection",
+        "IsRequired": false
+      },
+      {
+        "Name": "detaildata.DesignMode",
+        "Type": "System.Boolean",
         "IsRequired": false
       }
     ],

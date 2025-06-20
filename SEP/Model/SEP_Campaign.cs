@@ -1,9 +1,16 @@
-﻿namespace SEP.Model
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Text.Json.Serialization;
+
+namespace SEP.Model
 {
     public class SEP_Campaign
     {
         public int CampaignID { get; set; }
+        [Required(ErrorMessage ="Logged in Buyer ID needed")]
+        [Range(1, 999999, ErrorMessage = "Not Valid ID")]
         public int BuyerID { get; set; }
+        [Required(ErrorMessage = "Campaign Naem needed")]
         public string CampaignName { get; set; }
 
         public decimal Amount1 { get; set; }
@@ -12,17 +19,20 @@
         public decimal Amount4 { get; set; }
         public decimal Amount5 { get; set; }
 
-        public IFormFile APFile { get; set; }
+        
         public DateTime CreatedAt { get; set; }
     }
     public class SEP_CampaignAPFile
     {
         public int FileID { get; set; }
         public int CampaignID { get; set; }
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
         public DateTime UploadedAt { get; set; }
         public int? UploadedBy { get; set; } // optional
-        public string Remarks { get; set; }
+        public IFormFile APFile { get; set; }
+        public string? Remarks { get; set; }
+        [JsonIgnore]
+        public DataTable?  detaildata { get; set; }
     }
     public class SEP_CampaignAPData
     {
