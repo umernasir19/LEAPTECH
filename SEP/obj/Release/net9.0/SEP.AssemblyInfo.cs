@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SEP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be8316c4811358d3618a12e2850dc3aec04ad9cb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0804eea8630105a3ad2511037a0bd792d1a700f5")]
 [assembly: System.Reflection.AssemblyProductAttribute("SEP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SEP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

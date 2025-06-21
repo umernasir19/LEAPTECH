@@ -18,14 +18,14 @@ namespace SEP.Model
         public decimal Amount3 { get; set; }
         public decimal Amount4 { get; set; }
         public decimal Amount5 { get; set; }
-
+        public int FileId {  get; set; }
         
         public DateTime CreatedAt { get; set; }
     }
     public class SEP_CampaignAPFile
     {
         public int FileID { get; set; }
-        public int CampaignID { get; set; }
+        //public int CampaignID { get; set; }
         public string? FileName { get; set; }
         public DateTime UploadedAt { get; set; }
         public int? UploadedBy { get; set; } // optional
@@ -60,4 +60,10 @@ namespace SEP.Model
         public bool? LatePaymentPenalty { get; set; }
     }
 
+    public class SEP_Campaign_Results:SEP_CampaignAPData
+    {
+        public int NewPaymentTerms { get; set; }
+
+        public decimal SpendsAmount { get; set; }
+    }
 }

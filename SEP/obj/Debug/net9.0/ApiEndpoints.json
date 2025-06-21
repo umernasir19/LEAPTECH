@@ -35,6 +35,38 @@
   },
   {
     "ContainingType": "SEP.Controllers.CampaignController",
+    "Method": "GetAPDataforDashboard",
+    "RelativePath": "api/Campaign/GetAPDataforDashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "FileId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SEP.Controllers.CampaignController",
+    "Method": "GetCampaignByBuyer",
+    "RelativePath": "api/Campaign/GetCampaignByBuyer",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BuyerId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SEP.Controllers.CampaignController",
     "Method": "UploadApFile",
     "RelativePath": "api/Campaign/UploadAPFile",
     "HttpMethod": "POST",
@@ -43,11 +75,6 @@
     "Parameters": [
       {
         "Name": "FileID",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "CampaignID",
         "Type": "System.Int32",
         "IsRequired": false
       },

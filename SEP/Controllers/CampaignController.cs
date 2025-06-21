@@ -14,6 +14,36 @@ namespace SEP.Controllers
     {
         Campaign_BAL objcampaignbal;
 
+
+        [HttpGet]
+        [Route("GetCampaignByBuyer")]
+        public IActionResult GetCampaignByBuyer(int BuyerId)
+        {
+            if (BuyerId > 0)
+            {
+                SEP_Campaign buyer = new SEP_Campaign();
+                buyer.BuyerID= BuyerId;
+                objcampaignbal = new Campaign_BAL(buyer);
+                var response = objcampaignbal.GetCampaignsByBuyerId();
+                if (response.Count > 0)
+                {
+                    return Ok(new SEP_Response() { Code = 200, Message = "Records Returned", Data = response });
+                }
+                else
+                {
+                    return NotFound(new SEP_Response() { Code = 404, Message = "No Record Found", Data = "" });
+
+                }
+
+            }
+            else
+            {
+                return BadRequest(new SEP_Response() { Code = 400, Message = "Not Valid Request", Data = "" });
+            }
+
+        }
+
+
         [HttpPost]
         [Route("CreateCampaign")]
         public IActionResult Createcampaign(SEP_Campaign objcam)
@@ -41,6 +71,36 @@ namespace SEP.Controllers
 
         }
 
+
+
+        [HttpGet]
+        [Route("GetAPDataforDashboard")]
+        public IActionResult GetAPDataforDashboard(int FileId)
+        {
+            if (FileId > 0)
+            {
+                SEP_CampaignAPFile buyer = new SEP_CampaignAPFile();
+                buyer.FileID = FileId;
+                objcampaignbal = new Campaign_BAL(buyer);
+                var response = objcampaignbal.GetCampainApFiles();
+                if (response.Count > 0)
+                {
+                    return Ok(new SEP_Response() { Code = 200, Message = "Records Returned", Data = response });
+                }
+                else
+                {
+                    return NotFound(new SEP_Response() { Code = 404, Message = "No Record Found", Data = "" });
+
+                }
+
+            }
+            else
+            {
+                return BadRequest(new SEP_Response() { Code = 400, Message = "Not Valid Request", Data = "" });
+            }
+
+        }
+
         [HttpPost]
         [Route("UploadAPFile")]
         public async Task<IActionResult> UploadApFile(SEP_CampaignAPFile objcampaignAPFile)
@@ -61,7 +121,7 @@ namespace SEP.Controllers
                     return Ok(new SEP_Response() { Data = response, Code = 200, Message = "File Saved" });
                 }
 
-                return Ok(new SEP_Response() { Data = ModelState, Code = 400, Message = "File Format not supported" });
+                return BadRequest(new SEP_Response() { Data = ModelState, Code = 400, Message = "File Format not supported" });
 
             }
             else
@@ -69,6 +129,7 @@ namespace SEP.Controllers
                 return BadRequest(new SEP_Response() { Data = ModelState, Code = 400, Message = "Model Not Valid" });
             }
         }
+
 
 
 

@@ -34,5 +34,17 @@ namespace SEP.BAL
             return objcampaigndal.SaveApFile();
         }
 
+        public List<SEP_Campaign> GetCampaignsByBuyerId()
+        {
+            objcampaigndal = new Campaigns_DAL(objcampaignmodel);
+            return objcampaigndal.GetCampaignsByBuyerId();
+
+        }
+
+        public List<SEP_Campaign_Results> GetCampainApFiles()
+        {
+            objcampaigndal = new Campaigns_DAL(_objapfile);
+            return objcampaigndal.GetCampainApFiles();
+        }
     }
 }

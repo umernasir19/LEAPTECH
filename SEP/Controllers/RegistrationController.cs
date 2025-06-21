@@ -30,7 +30,7 @@ namespace SEP.Controllers
             }
             else
             {
-                return BadRequest(new SEP_Response() { Code = 401, Message = "Model Not Valid", Data = ModelState });
+                return BadRequest(new SEP_Response() { Code = 400, Message = "Model Not Valid", Data = ModelState });
             }
         }
 
@@ -43,12 +43,20 @@ namespace SEP.Controllers
             {
                 objrgstrbal = new Registration_BAL();
                 bool flag=objrgstrbal.VerifyOTP(objotp);
-                return Ok(new SEP_Response() { Code = 200, Message = flag==true?"Validation completed":"Expired or Invalid OTP", Data = objotp });
+                if (flag == true)
+                {
+                    return Ok(new SEP_Response() { Code = 200, Message = "Validation completed", Data = objotp });
+
+                }
+                else
+                {
+                    return Unauthorized(new SEP_Response() { Code  = 401, Message = "Expired or Invalid OTP", Data = objotp });
+                }
 
             }
             else
             {
-                return BadRequest(new { data = ModelState, code = 401, message = "Not Valid object Passed" });
+                return BadRequest(new { data = ModelState, code = 400, message = "Not Valid object Passed" });
             }
         }
 
