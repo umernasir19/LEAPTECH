@@ -2,7 +2,7 @@
 
 namespace SEP.Model
 {
-    public class SEP_Account
+    public class SEP_Account:SEP_BUYER
     {
         public int UserID { get; set; }
         [Required(ErrorMessage ="First Name Required")]
@@ -18,11 +18,15 @@ namespace SEP.Model
 
         public string Phone { get; set; }
 
-        public int CountryCode { get; set; }
+        public bool IsPhoneVerified { get; set; }
 
-        public string Designation { get; set; }
+        public bool IsEmailVerified { get; set; }
 
-        public string  Department { get; set; }
+        public DateTime DateTimeCreated { get; set; }
+
+
+
+
     }
 
     public class Login_User:SEP_Account

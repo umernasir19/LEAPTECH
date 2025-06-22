@@ -62,6 +62,7 @@ namespace SEP.DAL
                 cmd.Connection = con;
                 con.Open();
 
+                cmd.Parameters.Add(new SqlParameter("@Organization", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objrgstr.Organization));
 
                 cmd.Parameters.Add(new SqlParameter("@Email", SqlDbType.NVarChar, 200, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objrgstr.EmailAddress));
                 cmd.Parameters.Add(new SqlParameter("@Phone", SqlDbType.NVarChar, 20, ParameterDirection.Input, false, 10, 0, "", DataRowVersion.Proposed, objrgstr.Phone));
