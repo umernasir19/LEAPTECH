@@ -9,7 +9,7 @@ on:
     branches: [ "master" ]
     paths:
       - 'SEP/**'
-  workflow_dispatch:  # 👈 Enables manual run
+  workflow_dispatch:  
 
 jobs:
   build:
