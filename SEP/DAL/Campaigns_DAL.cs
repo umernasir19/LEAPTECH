@@ -81,6 +81,9 @@ namespace SEP.DAL
                 //cmd.Parameters.AddWithValue("@CampaignID", objapfile.CampaignID);
                 cmd.Parameters.AddWithValue("@FileName", objapfile.FileName);
                 cmd.Parameters.AddWithValue("@UploadedBy", objapfile.UploadedBy);
+                cmd.Parameters.AddWithValue("@FilePath", objapfile.FilePath);
+                cmd.Parameters.AddWithValue("@OriginalFileName", objapfile.OriginalFileName);
+
 
                 SqlParameter outParam = new SqlParameter("@FileID", SqlDbType.Int)
                 {
@@ -132,6 +135,8 @@ namespace SEP.DAL
                     sbc.ColumnMappings.Add("NumberOfPOs", "NumberOfPOs");
                     sbc.ColumnMappings.Add("EarlyPayDiscount", "EarlyPayDiscount");
                     sbc.ColumnMappings.Add("LatePaymentPenalty", "LatePaymentPenalty");
+                    sbc.ColumnMappings.Add("APSTATUS", "APSTATUS");
+
 
                     sbc.DestinationTableName = "SEP_CampaignAPData"; // use your actual table name
 
@@ -204,7 +209,7 @@ namespace SEP.DAL
         {
             try
             {
-                var listapfiledata=new List<SEP_Campaign_Results>();
+                var listapfiledata = new List<SEP_Campaign_Results>();
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "sp_GetCAPFileData";
@@ -214,15 +219,16 @@ namespace SEP.DAL
 
                 cmd.Parameters.AddWithValue("@fileId", objapfile.FileID);
 
-                using (SqlDataReader reader = cmd.ExecuteReader()) 
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     int i = 0;
-                    while (reader.Read()) 
+                    while (reader.Read())
                     {
                         i++;
                         var apfiledata = new SEP_Campaign_Results();
 
                         apfiledata.RowID = i;
+                        apfiledata.ApCampaignData = reader.GetInt32(reader.GetOrdinal("CampaignAPData"));
                         apfiledata.FileID = reader.GetInt32(reader.GetOrdinal("FileID"));
                         apfiledata.SupplierName = reader["SupplierName"]?.ToString();
                         apfiledata.SupplierEmail1 = reader["SupplierEmail1"]?.ToString();
@@ -242,7 +248,7 @@ namespace SEP.DAL
                         apfiledata.EarlyPayDiscount = reader["EarlyPayDiscount"] != DBNull.Value ? Convert.ToBoolean(reader["EarlyPayDiscount"]) : (bool?)null;
                         apfiledata.LatePaymentPenalty = reader["LatePaymentPenalty"] != DBNull.Value ? Convert.ToBoolean(reader["LatePaymentPenalty"]) : (bool?)null;
                         apfiledata.NewPaymentTerms = reader.GetInt32(reader.GetOrdinal("NewPayterm"));
-
+                        apfiledata.APSTATUS = reader.GetInt32(reader.GetOrdinal("APSTATUS"));
 
 
 
@@ -254,7 +260,7 @@ namespace SEP.DAL
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new List<SEP_Campaign_Results>();
             }
@@ -262,6 +268,82 @@ namespace SEP.DAL
             {
                 con.Close();
             }
+        }
+
+        public bool SaveEndorsment(DataTable objbuyerasset)
+        {
+            try
+            {
+                using (SqlBulkCopy bulkCopy = new SqlBulkCopy(con))
+                {
+                    con.Open();
+                    bulkCopy.DestinationTableName = "SEP_BuyerAssets";
+
+                    // Optional: Map DataTable columns to database columns if names are different
+                    bulkCopy.ColumnMappings.Add("BuyerID", "BuyerID");
+                    bulkCopy.ColumnMappings.Add("AssetType", "AssetType");
+                    bulkCopy.ColumnMappings.Add("FilePath", "FilePath");
+                    bulkCopy.ColumnMappings.Add("FileName", "FileName");
+                    bulkCopy.ColumnMappings.Add("UploadedAt", "UploadedAt");
+                    bulkCopy.ColumnMappings.Add("IsActive", "IsActive");
+                    // Write to server
+                    bulkCopy.WriteToServer(objbuyerasset);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public bool ChangeCampaignStatus(SEP_BuyerAction objaction)
+        {
+            try
+            {
+
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = "sp_UpdateSingleCampaignAPStatus";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = con;
+                con.Open();
+                cmd.Parameters.AddWithValue("@CampaignAPDataID", objaction.APcampaignData);
+                cmd.Parameters.AddWithValue("@@NewStatus", objaction.ActionId);
+
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int StatusCode = Convert.ToInt32(reader["StatusCode"]);
+                        string Message = reader["Message"].ToString();
+                        objaction.ResultStatus = StatusCode;
+                        //objcampain.CampaignID = Convert.ToInt32(reader["CampaignID"]);
+                    }
+                }
+                if (objaction.ResultStatus == 1) { return true; }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                return false;
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
         }
     }
 }

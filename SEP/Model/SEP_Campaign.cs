@@ -31,11 +31,17 @@ namespace SEP.Model
         public int? UploadedBy { get; set; } // optional
         public IFormFile APFile { get; set; }
         public string? Remarks { get; set; }
+
+        public string? FilePath { get; set; }
+
+        public string? OriginalFileName { get; set; }
+
         [JsonIgnore]
         public DataTable?  detaildata { get; set; }
     }
     public class SEP_CampaignAPData
     {
+        public int? ApCampaignData { get; set; }
         public int RowID { get; set; }
         public int FileID { get; set; }
 
@@ -58,6 +64,8 @@ namespace SEP.Model
         public int? NumberOfPOs { get; set; }
         public bool? EarlyPayDiscount { get; set; }
         public bool? LatePaymentPenalty { get; set; }
+
+        public int? APSTATUS { get; set; }
     }
 
     public class SEP_Campaign_Results:SEP_CampaignAPData
@@ -66,4 +74,29 @@ namespace SEP.Model
 
         public decimal SpendsAmount { get; set; }
     }
+
+
+    public class SEP_BuyerAction
+    {
+        public BuyerAction ActionId { get; set; }
+
+        public int? BuyerID { get; set; }
+        public int APcampaignData { get; set; }
+        public int? FileId { get; set; }
+        public int? CampaignID { get; set; }
+
+        public int? ResultStatus { get; set; }
+
+        public string Message { get; set; }
+
+    }
+
+    public enum BuyerAction
+    {
+        Initiated,
+        SendCampaign,
+        Completed
+    }
+
+
 }

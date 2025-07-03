@@ -1,5 +1,7 @@
 ﻿using SEP.DAL;
 using SEP.Model;
+using SEP.Utility;
+using System.Data;
 
 namespace SEP.BAL
 {
@@ -45,6 +47,30 @@ namespace SEP.BAL
         {
             objcampaigndal = new Campaigns_DAL(_objapfile);
             return objcampaigndal.GetCampainApFiles();
+        }
+
+
+        public List<SEP_BuyerAsset> EndorsementLetterPrepareandSave(SEP_Upload_logo objlogo,string baseurl)
+        {
+           var objbuyerassetdata= Utilities.ProcessEndoresement(objlogo, baseurl);
+            DataTable dt = Utilities.ToDataTable<SEP_BuyerAsset>(objbuyerassetdata);
+            objcampaigndal = new Campaigns_DAL();
+            if(objcampaigndal.SaveEndorsment(dt))
+            {
+                return objbuyerassetdata;
+            }
+            else
+            {
+                return new List<SEP_BuyerAsset>();
+            }
+
+        }
+
+
+        public bool UpdateBuyerActions(SEP_BuyerAction objbuyeracton)
+        {
+            objcampaigndal = new Campaigns_DAL();
+            return objcampaigndal.ChangeCampaignStatus(objbuyeracton);
         }
     }
 }

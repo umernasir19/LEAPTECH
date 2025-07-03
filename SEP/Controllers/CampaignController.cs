@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SEP.BAL;
 using SEP.Model;
@@ -22,7 +23,7 @@ namespace SEP.Controllers
             if (BuyerId > 0)
             {
                 SEP_Campaign buyer = new SEP_Campaign();
-                buyer.BuyerID= BuyerId;
+                buyer.BuyerID = BuyerId;
                 objcampaignbal = new Campaign_BAL(buyer);
                 var response = objcampaignbal.GetCampaignsByBuyerId();
                 if (response.Count > 0)
@@ -112,13 +113,21 @@ namespace SEP.Controllers
                     //objcampaignAPFile.FileName = objcampaignAPFile.APFile.FileName;
                     string APfolderPAth = Path.Combine(Directory.GetCurrentDirectory(), "APFiles");
                     //read CSV and return to list
-                    List<SEP_CampaignAPData> aplist =await Utilities.SaveAndParseCsvAsync(objcampaignAPFile, APfolderPAth);
+                    List<SEP_CampaignAPData> aplist = await Utilities.SaveAndParseCsvAsync(objcampaignAPFile, APfolderPAth);
                     //list convert to datatable for DB sending
                     DataTable apfiledata = Utilities.ToDataTable<SEP_CampaignAPData>(aplist);
                     objcampaignAPFile.detaildata = apfiledata;
                     objcampaignbal = new Campaign_BAL(objcampaignAPFile);
                     var response = objcampaignbal.SaveApfileData();
-                    return Ok(new SEP_Response() { Data = response, Code = 200, Message = "File Saved" });
+                    if (response.FileID > 0)
+                    {
+                        return Ok(new SEP_Response() { Data = response, Code = 200, Message = "File Saved" });
+                    }
+                    else
+                    {
+                        return BadRequest(new SEP_Response() { Data = "", Code = 400, Message = "File Not Saved" });
+                    }
+
                 }
 
                 return BadRequest(new SEP_Response() { Data = ModelState, Code = 400, Message = "File Format not supported" });
@@ -131,7 +140,48 @@ namespace SEP.Controllers
         }
 
 
+        [HttpPost]
+        [Route("UploadPicturesforLetter")]
+        public IActionResult UploadPicturesforLetter(SEP_Upload_logo objlogo)
+        {
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+            // Utilities.SendEmail(baseUrl);
+            objcampaignbal = new Campaign_BAL();
+            var flag = objcampaignbal.EndorsementLetterPrepareandSave(objlogo, baseUrl);
 
+            if (flag.Count > 0)
+            {
+                return Ok(new SEP_Response() { Data = flag, Code = 200, Message = "File Saved" });
 
+            }
+            else
+            {
+                return BadRequest(new SEP_Response() { Data = "", Code = 400, Message = "File Not Saved" });
+
+            }
+
+        }
+
+        [HttpPost]
+        [Route("PerformBuyerAction")]
+        public IActionResult PerformBuyerAction(SEP_BuyerAction objbuyeraction)
+        {
+            objcampaignbal = new Campaign_BAL();
+            var flag = objcampaignbal.UpdateBuyerActions(objbuyeraction);
+            if (flag)
+            {
+                return Ok(new SEP_Response()
+                {
+                    Code = 200,
+                    Data = "",
+                    Message = "Updated Successfully"
+                });
+
+            }
+            else
+            {
+                return BadRequest(new SEP_Response() { Message="Error",Code=400,Data=null});
+            }
+        }
     }
 }

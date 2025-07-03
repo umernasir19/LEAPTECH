@@ -18,6 +18,22 @@
     ]
   },
   {
+    "ContainingType": "SEP.Controllers.BuyerController",
+    "Method": "GetBuyerAssets",
+    "RelativePath": "api/Buyer/GetBuyerAssets",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "buyerid",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SEP.Controllers.CampaignController",
     "Method": "Createcampaign",
     "RelativePath": "api/Campaign/CreateCampaign",
@@ -100,6 +116,16 @@
       },
       {
         "Name": "Remarks",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FilePath",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "OriginalFileName",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -351,6 +377,37 @@
       {
         "Name": "detaildata.DesignMode",
         "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SEP.Controllers.CampaignController",
+    "Method": "UploadPicturesforLetter",
+    "RelativePath": "api/Campaign/UploadPicturesforLetter",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BuyerId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "CampaignID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Logo",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "Signature",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       }
     ],

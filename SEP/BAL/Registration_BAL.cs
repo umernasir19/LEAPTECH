@@ -33,8 +33,9 @@ namespace SEP.BAL
 
         public bool RegisterUser()
         {
+            
             objrgstrdal = new Registration_DAL(objaccnt);
-
+            
             return objrgstrdal.RegisterAccount();
         }
 
@@ -43,6 +44,11 @@ namespace SEP.BAL
             return objrgstrdal.Login(email,  password);
         }
 
-
+        private string GenerateOTP()
+        {
+            Random random = new Random();
+            string otp = random.Next(100000, 999999).ToString();
+            return otp;
+        }
     }
 }

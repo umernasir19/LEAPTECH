@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using System.Net.Mail;
 using System.Numerics;
 using Azure;
+using SEP.Utility;
 
 namespace SEP.DAL
 {
@@ -76,16 +77,33 @@ namespace SEP.DAL
                 cmd.Parameters.Add(new SqlParameter("@Department", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, objrgstr.Department));
 
                 cmd.Parameters.Add(new SqlParameter("@UserId", SqlDbType.VarChar, 30, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Proposed, objrgstr.CountryCode));
+                cmd.Parameters.Add(new SqlParameter("@EmailCode", SqlDbType.VarChar, 30, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Proposed, objrgstr.CountryCode));
 
                 cmd.ExecuteNonQuery();
                 object value = cmd.Parameters["@UserId"].Value;
+                object emailcode = cmd.Parameters["@EmailCode"].Value;
+
 
                 int userId = (value == DBNull.Value || string.IsNullOrWhiteSpace(value.ToString()))
                     ? 0
                     : Convert.ToInt32(value);
 
                 objrgstr.UserID = userId;
-                return true;
+                if (userId > 0)
+                {
+                    Sep_Email sep_Email = new Sep_Email();
+                    sep_Email.To = objrgstr.EmailAddress;
+                    sep_Email.Subject = "OTP Verification Code";
+                    sep_Email.Body = "Your OTP for Verification is : " + emailcode;
+                    Utilities.SendEmail(sep_Email);
+
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +17,16 @@ if (app.Environment.IsDevelopment())
 }
 app.MapGet("/", () => "API is running.");
 app.UseHttpsRedirection();
+
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "BuyerAssets")),
+    RequestPath = "/BuyerAssets"
+});
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
 

@@ -10,19 +10,13 @@
 
   <script>
     function registerUser() {
-      const apiUrl = "https://cardifyapi.somee.com/api/registration/register";
+      const apiUrl = "https://cardifyapi.somee.com/api/registration/verifyOTP";
 
       const requestBody = {
-        FirstName: "Umer",
-        LastName: "Test",
-        Type: 0, // 0 = buyer
-        EmailAddress: "umer.11user@example.com",
-        Password: "testingpwd!",
-        Phone: "3342543225",
-        CountryCode: 92,
-        Designation: "Consultant",
-        Department: "IT"
-      };
+  "UserId": 7,
+  "OTP": "12345",
+  "OTPType": "Email"
+};
 
       fetch(apiUrl, {
         method: "POST",
