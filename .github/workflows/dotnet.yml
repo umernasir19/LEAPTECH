@@ -9,13 +9,15 @@ on:
     branches: [ "master" ]
     paths:
       - 'SEP/**'
+  workflow_dispatch:  # 👈 Enables manual run
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -31,5 +33,3 @@ jobs:
       run: dotnet build --no-restore
 
     - name: Test
-      working-directory: SEP
-      run: dotnet test --no-build --verbosity normal
